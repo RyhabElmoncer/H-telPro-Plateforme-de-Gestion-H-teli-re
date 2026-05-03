@@ -1,0 +1,64 @@
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.hero {
+  position: relative; min-height: 70vh;
+  display: flex; align-items: center;
+  overflow: hidden; background: var(--charcoal);
+}
+.hero-bg { position: absolute; inset: 0; }
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.hero-content {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  text-align: center; color: white;
+}
+.hero-tagline { font-size: 14px; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); margin-bottom: 12px; font-weight: 500; }
+.hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 8vw, 96px); font-weight: 300; color: white; line-height: 1; margin-bottom: 16px; }
+.hero-title em { color: var(--gold); font-style: italic; }
+.hero-subtitle { font-size: 18px; color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto; }
+
+/* Search */
+.search-section { padding: 0 0 40px; margin-top: -1px; background: var(--mist); }
+.search-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow-lg); margin-top: -40px; position: relative; z-index: 10; }
+.search-form { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 16px; align-items: end; }
+.search-field label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.search-btn { height: 42px; white-space: nowrap; }
+
+/* Sections */
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; text-align: center; margin-bottom: 40px; }
+.section-title::after { content: ''; display: block; width: 50px; height: 2px; background: var(--gold); margin: 12px auto 0; }
+
+.features-section { padding: 72px 0; background: white; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 32px; }
+.feature-card { text-align: center; padding: 32px 24px; border-radius: var(--radius-lg); border: 1px solid var(--border); transition: var(--transition); }
+.feature-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow); }
+.feature-icon { font-size: 40px; margin-bottom: 16px; }
+.feature-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; margin-bottom: 8px; }
+.feature-card p { font-size: 14px; color: var(--text-secondary); }
+
+.rooms-preview { padding: 72px 0; }
+.rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.room-preview-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; cursor: pointer; transition: var(--transition); }
+.room-preview-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.room-preview-img { height: 200px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f0ead6, #e8dfc8); font-size: 64px; }
+.room-preview-info { padding: 20px; }
+.room-preview-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; margin-bottom: 4px; }
+.room-preview-price { font-size: 13px; color: var(--gold-dark); font-weight: 600; margin-bottom: 16px; }
+
+@media (max-width: 900px) {
+  .search-form { grid-template-columns: 1fr 1fr; }
+  .rooms-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .search-form { grid-template-columns: 1fr; }
+  .hero { min-height: 50vh; }
+}

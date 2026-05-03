@@ -1,0 +1,104 @@
+{
+  "name": "Hotel - Notifications Automatiques",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "hotel-confirmation",
+        "responseMode": "onReceived",
+        "responseData": "firstEntryJson"
+      },
+      "name": "Webhook - Confirmation",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "hotel-confirmation"
+    },
+    {
+      "parameters": {
+        "fromEmail": "hotel@votrehotel.com",
+        "toEmail": "={{$json.client.email}}",
+        "subject": "✅ Confirmation de votre réservation #={{$json.reservation.number}}",
+        "text": "Bonjour {{$json.client.name}},\n\nVotre réservation a bien été confirmée.\n\nDétails :\n- N° Réservation : {{$json.reservation.number}}\n- Arrivée : {{$json.reservation.checkIn}}\n- Départ : {{$json.reservation.checkOut}}\n- Montant : {{$json.reservation.total}} DT\n\nNous vous attendons avec plaisir.\n\nCordialement,\nL'équipe de l'hôtel"
+      },
+      "name": "Email - Confirmation",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "path": "hotel-cancellation",
+        "responseMode": "onReceived"
+      },
+      "name": "Webhook - Annulation",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 480]
+    },
+    {
+      "parameters": {
+        "fromEmail": "hotel@votrehotel.com",
+        "toEmail": "={{$json.client.email}}",
+        "subject": "❌ Annulation de réservation #={{$json.reservation.number}}",
+        "text": "Bonjour {{$json.client.name}},\n\nVotre réservation #{{$json.reservation.number}} a été annulée.\n\nNous espérons vous revoir prochainement.\n\nCordialement,\nL'équipe de l'hôtel"
+      },
+      "name": "Email - Annulation",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [500, 480]
+    },
+    {
+      "parameters": {
+        "path": "hotel-payment",
+        "responseMode": "onReceived"
+      },
+      "name": "Webhook - Paiement",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 660]
+    },
+    {
+      "parameters": {
+        "fromEmail": "hotel@votrehotel.com",
+        "toEmail": "={{$json.client.email}}",
+        "subject": "💳 Confirmation de paiement - {{$json.payment.amount}} DT",
+        "text": "Bonjour {{$json.client.name}},\n\nNous confirmons la réception de votre paiement.\n\nMontant : {{$json.payment.amount}} DT\nMéthode : {{$json.payment.method}}\nRéférence : {{$json.payment.transactionId}}\n\nMerci de votre confiance.\n\nCordialement,\nL'équipe de l'hôtel"
+      },
+      "name": "Email - Paiement",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [500, 660]
+    },
+    {
+      "parameters": {
+        "path": "hotel-promo",
+        "responseMode": "onReceived"
+      },
+      "name": "Webhook - Promo",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 840]
+    },
+    {
+      "parameters": {
+        "fromEmail": "hotel@votrehotel.com",
+        "toEmail": "={{$json.client.email}}",
+        "subject": "🎉 Offre spéciale pour vous !",
+        "text": "Bonjour {{$json.client.name}},\n\n{{$json.promo.message}}\n\n{{$json.promo.discount ? 'Réduction exclusive : ' + $json.promo.discount + '%' : ''}}\n\nProfitez-en vite !\n\nCordialement,\nL'équipe de l'hôtel"
+      },
+      "name": "Email - Promo",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [500, 840]
+    }
+  ],
+  "connections": {
+    "Webhook - Confirmation": { "main": [[{ "node": "Email - Confirmation", "type": "main", "index": 0 }]] },
+    "Webhook - Annulation": { "main": [[{ "node": "Email - Annulation", "type": "main", "index": 0 }]] },
+    "Webhook - Paiement": { "main": [[{ "node": "Email - Paiement", "type": "main", "index": 0 }]] },
+    "Webhook - Promo": { "main": [[{ "node": "Email - Promo", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": {},
+  "tags": ["hotel", "notifications", "email"]
+}
